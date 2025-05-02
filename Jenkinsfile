@@ -7,7 +7,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Checking out code...'
-                echo 'Building branch: ${params.BRANCH}'
+                echo "Building branch: ${params.BRANCH}"
             }
         }
         stage('Build') {
