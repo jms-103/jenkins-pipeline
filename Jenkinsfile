@@ -16,16 +16,13 @@ pipeline {
         stage('Setup') {
             steps {
                 echo "Python 환경을 설정합니다."
-                sh 'python3 -m venv venv'
-                sh '. venv/bin/activate'
-                sh 'pip install pytest'
                 echo "Python 환결설정 완료. (pytest 설치 완료)"
             }
         }
         stage('Test') {
             steps {
                 echo 'pytest를 사용해서 테스트를 실행합니다.'
-                sh '. venv/bin/activate && pytest'
+                sh 'pytest'
                 echo '테스트 완료'
             }
         }
