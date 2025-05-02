@@ -1,4 +1,7 @@
 pipeline {
+    parameters {
+        string(name: 'BRANCH', defaultValue: 'main', description: '빌드할 git branch')
+    }
     agent any
     stages {
         stage('Checkout') {
