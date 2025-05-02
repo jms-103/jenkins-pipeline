@@ -22,7 +22,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'pytest를 사용해서 테스트를 실행합니다.'
-                sh 'pytest ./tests'
+                sh 'pytest ./test.py'
                 echo '테스트 완료'
             }
         }
