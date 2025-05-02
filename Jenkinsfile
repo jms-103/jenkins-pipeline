@@ -2,23 +2,31 @@ pipeline {
     parameters {
         string(name: 'BRANCH', defaultValue: 'main', description: '빌드할 git branch')
     }
+    // agent { label 'docker-builder' }
     agent any
     stages {
         stage('Checkout') {
+            // agent { label 'windows-builder'}
             steps {
                 echo 'Checking out code...'
-                echo "Building branch: ${params.BRANCH}"
+                git url: 'https://github.com/jms-103/jenkins-pipeline', branch: params.BRANCH
+                echo "소스코드를 Git 저장소에서 성공적으로 가져왔습니다."
             }
         }
-        stage('Build') {
+        stage('Setup') {
             steps {
-                sh 'chmod +x ./build.sh'
-                sh './build.sh'
+                echo "Python 환경을 설정합니다."
+                sh 'python3 -m venv venv'
+                sh '. venv/bin/activate'
+                sh 'pip install pytest'
+                echo "Python 환결설정 완료. (pytest 설치 완료)"
             }
         }
         stage('Test') {
             steps {
-                sh 'echo "Simulating test command"'
+                echo 'pytest를 사용해서 테스트를 실행합니다.'
+                sh '. venv/bin/activate && pytest'
+                echo '테스트 완료'
             }
         }
     }
